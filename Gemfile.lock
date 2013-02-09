@@ -1,0 +1,11 @@
+GEM
+  specs:
+    ruby-fsevent (0.2.1)
+    watchr (0.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ruby-fsevent
+  watchr
