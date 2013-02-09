@@ -3,6 +3,16 @@ def h
 end
 
 class HQ9F
+  include Enumerable
+  extend Forwardable
+
+  def_delegators :@_store, :<<
+
+  def initialize
+    @_store = []
+    @_lambdas = []
+  end
+
   def self._99(n)
     msg = []
     n.downto(0) do |i|
@@ -32,6 +42,18 @@ class HQ9F
     end
     return msg
   end
+
+  def each(&blk)
+    @_store.each(&blk)
+  end
+
+  def push_lambda(lamb)
+    @_lambdas << lamb
+  end
+
+  def pop_lambda(*args)
+    @_lambdas.pop.call(*args)
+  end
 end
 
 require 'minitest/autorun'
@@ -51,5 +73,23 @@ class TestHQ9F < MiniTest::Unit::TestCase
     assert_equal '1', result.first
     assert_equal 'Chunky', result[3-1]
     assert_equal 'HeartPCS', result[17-1]
+  end
+
+  def test_each
+    hq9f = HQ9F.new
+    10.times do |i|
+      hq9f << i
+    end
+    hq9f.each_with_index do |k,v|
+      assert_equal k,v
+    end
+  end
+
+  def test_push_pop
+    hq9f = HQ9F.new
+    hq9f.push_lambda lambda { puts 'PCS Rocks' }
+    assert_output "PCS Rocks\n" do
+      hq9f.pop_lambda
+    end
   end
 end
