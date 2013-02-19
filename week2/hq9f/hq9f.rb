@@ -67,17 +67,20 @@ end
 require 'minitest/autorun'
 class TestHQ9F < MiniTest::Unit::TestCase
   def test_h
+    # assert_output takes a block. Anything that is output inside the
+    # block is captured and matched.
     assert_output "Hello World!\n" do
       h
     end
   end
 
   def test_99
+    # When the output is really long, sometimes we want to capture it
+    # and use assert_match.
     out, err = capture_io do
       HQ9F._99(99)
     end
     assert_match /99 bottles of beer on the wall,\n/, out
-    # assert_equal HQ9F._99(1).last, '1 new bottles of beer on the wall!'
   end
 
   def test_f
@@ -85,6 +88,9 @@ class TestHQ9F < MiniTest::Unit::TestCase
       hq9f = HQ9F.new
       hq9f.f(1, 100, {3 => 'Chunky', 7 => 'Bacon', 17 => 'HeartPCS'})
     end
+    # If we want to reason about individual lines we need to split the
+    # output into lines. String#split will split on spaces, tabs, or
+    # newlines if there is no argument given.
     result = out.split()
     assert_equal '1', result.first
     assert_equal 'Chunky', result[3-1]
