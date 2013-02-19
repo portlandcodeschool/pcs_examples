@@ -1,6 +1,8 @@
 def h
-  return 'Hello World!'
+  puts 'Hello World!'
 end
+
+require 'forwardable'
 
 class HQ9F
   include Enumerable
@@ -15,6 +17,7 @@ class HQ9F
 
   def self._99(n)
     msg = []
+
     n.downto(0) do |i|
       if i > 0
         msg << "#{i} bottles of beer on the wall,\n"
@@ -28,19 +31,24 @@ class HQ9F
         msg << "#{n} new bottles of beer on the wall!"
       end
     end
-    return msg
+
+    puts msg
   end
 
   def f(min, max, substitutions)
-    msg = []
     min.upto(max) do |i|
-      t_msg = ""
+      msg = ""
+
       substitutions.each_pair do |k,v|
-        t_msg += v if i % k == 0
+        msg += v if i % k == 0
       end
-      msg << (t_msg != "" ? t_msg : i.to_s)
+
+      if !msg.empty?
+        puts msg
+      else
+        puts i.to_s
+      end
     end
-    return msg
   end
 
   def each(&blk)
@@ -59,17 +67,25 @@ end
 require 'minitest/autorun'
 class TestHQ9F < MiniTest::Unit::TestCase
   def test_h
-    assert_equal h, 'Hello World!'
+    assert_output "Hello World!\n" do
+      h
+    end
   end
 
   def test_99
-    assert_equal HQ9F._99(99).first, "99 bottles of beer on the wall,\n"
-    assert_equal HQ9F._99(1).last, '1 new bottles of beer on the wall!'
+    out, err = capture_io do
+      HQ9F._99(99)
+    end
+    assert_match /99 bottles of beer on the wall,\n/, out
+    # assert_equal HQ9F._99(1).last, '1 new bottles of beer on the wall!'
   end
 
   def test_f
-    hq9f = HQ9F.new
-    result = hq9f.f(1, 100, {3 => 'Chunky', 7 => 'Bacon', 17 => 'HeartPCS'})
+    out, err = capture_io do
+      hq9f = HQ9F.new
+      hq9f.f(1, 100, {3 => 'Chunky', 7 => 'Bacon', 17 => 'HeartPCS'})
+    end
+    result = out.split()
     assert_equal '1', result.first
     assert_equal 'Chunky', result[3-1]
     assert_equal 'HeartPCS', result[17-1]
