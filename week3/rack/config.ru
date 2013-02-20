@@ -19,3 +19,7 @@ end
 map '/poster' do
   run Poster.new
 end
+
+map '/rps' do
+  run RPS.new
+end

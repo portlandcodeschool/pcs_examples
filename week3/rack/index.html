@@ -1,3 +1,15 @@
-<h1>Woohoo! It worked!</h1>
-
-<p>I'm so awesome at this. Look at me go!</p>
+<!DOCTYPE html>
+<html>
+  <body>
+    Would you like to play my game? *evil cackle*
+    <form method="post" action="http://localhost:9292/rps">
+      <input type='hidden' name="utf8" value="☃"></input>
+      <input type='submit' name="user_choice" value="rock">
+      <input type='submit' name="user_choice" value="paper">
+      <input type='submit' name="user_choice" value="scissors">
+      <input type='submit' name="user_choice" value="lizard">
+      <input type='submit' name="user_choice" value="spock">
+    </form>
+    <%= @choice %>
+  </body>
+</html>
