@@ -1,32 +1,30 @@
 require 'rack'
 require 'rack/contrib'
-require 'rack/contrib/try_static'
+# require 'rack/contrib/try_static'
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'sinatra/json'
 
-use Rack::TryStatic,
-  :root => "public",  # static files root dir
-  :urls => %w[/],     # match all requests
-  :try => ['.html', 'index.html', '/index.html'] # try these postfixes sequentially
-
-get '/note/:id' do
+get '/note/:id/?' do
   content_type :json
-  json({ subject: 'test', content: 'test' })
+  json subject: 'test', content: 'test'
 end
 
-post '/note/' do
-
+post '/note/:id/?' do
+  content_type :json
+  json subject: 'test', content: 'test'
 end
 
-put '/note/:id/' do
-
+put '/note/?' do
+  content_type :json
+  json subject: 'test', content: 'test', id: 42
 end
 
-delete '/note/:id/' do
-
+delete '/note/:id/?' do
+  head :ok
 end
 
-get '*' do
-
-end
+# use Rack::TryStatic,
+#   :root => File.expand_path('../public', __FILE__),  # static files root dir
+#   :urls => %w[/],     # match all requests
+#   :try => ['.html', 'index.html', '/index.html'] # try these postfixes sequentially

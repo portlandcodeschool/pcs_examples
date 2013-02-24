@@ -49,43 +49,55 @@ Note.prototype.fetch = function () {
 };
 
 Note.prototype.save = function () {
-  var method;
+  var method, url;
+  var _this = this;
 
   // This must be a new model
   if (typeof this.id === 'undefined') {
+    url = this.baseUrl;
     method = "PUT";
   }
   else {
+    url = this.baseUrl + this.id;
     method = "POST";
   }
 
   $.ajax({
-    url: this.baseUrl + this.id,
+    url: url,
     dataType: 'json',
     data: {
       subject: this.subject,
       content: this.content
     },
-    type: 'POST',
+    type: method,
     success: function (data) {
-      this.id = data['id'];
-      this.subject = data['subject'];
-      this.content = data['content'];
+      _this.id       = data['id'];
+      _this.subject  = data['subject'];
+      _this.content  = data['content'];
     }
   });
 };
 
 Note.prototype.destroy = function () {
+  var _this = this;
   $.ajax({
     url: this.baseUrl + this.id,
     dataType: 'json',
-    type: 'DELETE'
+    type: 'DELETE',
+    success: function (data) {
+      _this = null;
+    }
   });
 };
 
 
 (function () {
-  var steve = new NoteJSONP(1).fetch();
-  var existing_model = new Note(1).fetch();
-  var new_model = new Note().save();
+  window.steve = new NoteJSONP(1).fetch();
+  window.existing_model = new Note(1).fetch();
+  window.new_model = new Note();
+  window.new_model.content = 'saving';
+  window.new_model.subject = 'subject';
+  window.new_model.save();
+  // window.new_model.save();
+  // window.new_model.destroy();
 })();
