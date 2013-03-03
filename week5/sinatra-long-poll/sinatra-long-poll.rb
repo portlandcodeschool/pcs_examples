@@ -54,6 +54,9 @@ post '/message' do
   204
 end
 
+# TODO Take these templates and put them somewhere a little more reasonable
+# TODO Use the HTML5 Doctype
+# TODO Use a specific version of jquery. If you use 1.9.1, make sure you get jquery-migrate.
 __END__
 
 @@ layout
