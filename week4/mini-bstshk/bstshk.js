@@ -1,5 +1,5 @@
 var links = [];
-var numShakes = 1;
+var numShakes = 50;
 
 // Display a link when there's an error
 function noImg(obj) { $(obj).replaceWith('Imagine a video is here. Or click through to see it.'); }
@@ -16,7 +16,7 @@ $(document).ready(function(){
       include_entities: 1,
       count: numShakes
     },
-    success: function () {
+    success: function (data) {
       $.each(data, function(i, item){
         var link, image_link, dupe = false;
         var entity_url = item.entities.urls[0];
