@@ -22,7 +22,7 @@ end
 # . multi-user with authentication
 
 configure :development, :production do
-  set :datamapper_url, "sqlite3://#{File.dirname(__FILE__)}/corkboard.sqlite3"
+  set :datamapper_url, "mysql://db_connect:db_connect@localhost:3306/corkboard"
 end
 configure :test do
   set :datamapper_url, "sqlite3://#{File.dirname(__FILE__)}/corkboard-test.sqlite3"

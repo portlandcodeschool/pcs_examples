@@ -90,8 +90,6 @@ Note.prototype.remove = function(id){
   });
 };
 
-var n = new Note(3).fetch().then(-> view.refresh())
-
 
 
 

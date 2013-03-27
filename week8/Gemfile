@@ -1,0 +1,7 @@
+source "http://rubygems.org"
+
+ruby "2.0.0"
+
+gem "timecop"
+gem "rspec"
+gem "highline"
