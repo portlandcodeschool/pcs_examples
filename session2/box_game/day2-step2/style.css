@@ -1,0 +1,56 @@
+.clearfix:after{
+  content:".";
+  display:block;
+  height:0;
+  clear:both;
+  visibility:hidden;
+}
+
+body {
+  background-color: gray;
+  margin: 0;
+}
+#container {
+  background-color: white;
+  width: 960px;
+  margin: 0 auto;
+  height: 2000px;
+}
+#container h1 {
+  display: none;
+  margin: 0;
+}
+
+.row {
+  position: relative;
+  height: 100px;
+}
+.box {
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  background-color: gray;
+  padding: 10px;
+  position: absolute;
+}
+#wipe-btn {
+  position: relative;
+  left: 345px;
+  width: 80px;
+}
+
+.col-2 {
+  left: 235px;
+}
+.col-1 {
+  left: 335px;
+}
+.col0 {
+  left: 435px;
+}
+.col1 {
+  left: 535px;
+}
+.col2 {
+  left: 635px;
+}
